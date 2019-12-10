@@ -1,0 +1,5 @@
+_extends: .github
+
+version-template: $MAJOR.$MINOR
+tag-template: build-health-cache-updater-$NEXT_PATCH_VERSION
+name-template: Build Health-cache Updater Plugin $NEXT_PATCH_VERSION
