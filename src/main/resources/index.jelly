@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+    Updates the Job's build health report cache whenever a run is finalized.
+</div>
