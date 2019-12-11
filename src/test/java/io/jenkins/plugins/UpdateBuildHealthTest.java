@@ -30,11 +30,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.FailureBuilder;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.LoggerRule;
 import org.jvnet.hudson.test.SleepBuilder;
 import org.powermock.reflect.Whitebox;
 
 import java.util.List;
+import java.util.logging.Level;
 
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsIterableContaining.hasItem;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -46,6 +51,8 @@ public class UpdateBuildHealthTest {
 
     @Rule
     public JenkinsRule j = new JenkinsRule();
+    @Rule
+    public LoggerRule logger = new LoggerRule().record(UpdateBuildHealth.class.getName(), Level.FINE).capture(10);
 
     @Test
     public void normal() throws Exception {
@@ -89,5 +96,9 @@ public class UpdateBuildHealthTest {
         assertFalse(cachedBuildHealthReports.isEmpty());
         assertEquals(0, cachedBuildHealthReports.get(0).getScore());
 
+        assertThat(logger.getMessages(), hasItem(equalTo("Calculating BuildHealthReports for one#3")));
+        assertThat(logger.getMessages(), hasItem(equalTo("Calculating BuildHealthReports for two#1")));
+        assertThat(logger.getMessages(), hasItem(startsWith("BuildHealthReports for one#3 done. Time:")));
+        assertThat(logger.getMessages(), hasItem(startsWith("BuildHealthReports for two#1 done. Time:")));
     }
 }
