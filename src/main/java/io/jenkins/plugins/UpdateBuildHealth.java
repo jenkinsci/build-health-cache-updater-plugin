@@ -38,12 +38,15 @@ public class UpdateBuildHealth extends RunListener<Run<?,?>> {
 
     @Override
     public void onFinalized(Run<?,?> run) {
-        logger.log(Level.FINE, "Calculating BuildHealthReports for {0}", run.getExternalizableId());
-        long start = System.currentTimeMillis();
+        long start = 0;
+        if (logger.isLoggable(Level.FINE)) {
+            logger.log(Level.FINE, "Calculating BuildHealthReports for {0}", run.getExternalizableId());
+            start = System.currentTimeMillis();
+        }
         run.getParent().getBuildHealthReports();
 
-        long time = System.currentTimeMillis() - start;
         if (logger.isLoggable(Level.FINE)) {
+            long time = System.currentTimeMillis() - start;
             Object[] params = new Object[]{run.getExternalizableId(), TimeUnit.MILLISECONDS.toSeconds(time)};
             logger.log(Level.FINE, "BuildHealthReports for {0} done. Time: {1}s", params);
         }
