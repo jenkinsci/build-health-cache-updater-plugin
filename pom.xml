@@ -44,6 +44,12 @@
             <artifactId>powermock-module-junit4</artifactId>
             <version>2.0.4</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
@@ -57,13 +63,8 @@
         <dependencies>
             <dependency>
                 <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-core</artifactId>
-                <version>2.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-library</artifactId>
-                <version>2.1</version>
+                <artifactId>hamcrest</artifactId>
+                <version>2.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
